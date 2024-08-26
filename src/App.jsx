@@ -38,11 +38,16 @@ const App = () => {
   };
 
   const handleUpdateTask = async (id, updatedTask) => {
+    const { _id, createdAt, updatedAt, __v, ...taskData } = updatedTask;
+
     try {
-      await updateTask(id, updatedTask);
+      await updateTask(id, taskData);
       fetchTasks();
     } catch (error) {
-      console.error('Error updating task:', error);
+      console.error(
+        'Error updating task:',
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
